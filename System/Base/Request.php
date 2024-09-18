@@ -2,7 +2,6 @@
 
 namespace System\Base;
 
-use stdClass;
 
 class Request
 {

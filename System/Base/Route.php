@@ -2,9 +2,7 @@
 
 namespace System\Base;
 
-use ArrayAccess;
 use Closure;
-use stdClass;
 
 class Route extends Router
 {
@@ -35,13 +33,7 @@ class Route extends Router
 
 	private static function setRoute(string $method = 'get' | 'post' | 'patch' | 'delete', string $uri, array|Closure $action)
 	{
-		$route_info = new stdClass();
-
-		$route_info->action = $action;
-		$route_info->uri = $uri;
-		$route_info->method = $method;
-		$route_info->is_named = false;
-
-		return new Router($route_info);
+		$is_named = false;
+		return new Router((object)compact('action', 'uri', 'method', 'is_named'));
 	}
 }

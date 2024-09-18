@@ -6,7 +6,8 @@ if (!function_exists('env')) {
 	function config($name)
 	{
 		$env = parse_ini_file(Dir::$root . '/.env');
-		return $env[$name];
+
+		return key_exists($name, $env) ? $env[$name] : NULL;
 	}
 }
 

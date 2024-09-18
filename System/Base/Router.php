@@ -38,7 +38,24 @@ class Router extends Request
 		}
 	}
 
-	private function getFuncArgs($build_request, $method)
+	public function name(string $name)
+	{
+		if (!empty($this::$routes['routes']))
+			foreach ($this::$routes['routes'] as $route) {
+				if ($route->uri === $this->route_uri) {
+					$route->is_named = true;
+					$route->name = $name;
+					$this::$namedRoutes[$name] = $route;
+				}
+			}
+	}
+
+	public static function routes(?string $name = NULL)
+	{
+		return $name ? (key_exists($name, Router::$namedRoutes) ? Router::$namedRoutes[$name] : die("Route <strong><em>'$name'</em></strong> is undefined.")) : Router::$routes;
+	}
+
+	private function getFuncArgs($build_request, ReflectionMethod|ReflectionFunction $method)
 	{
 		$args = [];
 		$method_parameter_count = $method->getNumberOfRequiredParameters();
@@ -49,6 +66,10 @@ class Router extends Request
 			$argument_type = $argument->getType()->getName();
 
 			$request_class_name = (new ReflectionClass(Request::class))->getName();
+			/* $model_class_name = (new ReflectionClass(Model::class))->getShortName();
+			$arg_parent_class_name = (new ReflectionClass($argument_type))->getParentClass(); */
+			// $args[$argument_name] = $argument_type === $request_class_name ? $build_request->request : (!$argument->getType()->isBuiltin() ? (($arg_parent_class_name && $arg_parent_class_name->getShortName() === $model_class_name) ? $argument_type::instantiate() : new $argument_type) : NULL);
+
 			$args[$argument_name] = $argument_type === $request_class_name ? $build_request->request : (!$argument->getType()->isBuiltin() ? new $argument_type : NULL);
 
 			// TODO: Select Model by id
@@ -107,22 +128,5 @@ class Router extends Request
 			throw new Exception("The route action requires either an array or a closure.", 1);
 
 		return false;
-	}
-
-	public static function routes(?string $name = NULL)
-	{
-		return $name ? (key_exists($name, Router::$namedRoutes) ? Router::$namedRoutes[$name] : die("Route <strong><em>'$name'</em></strong> is undefined.")) : Router::$routes;
-	}
-
-	public function name(string $name)
-	{
-		if (!empty($this::$routes['routes']))
-			foreach ($this::$routes['routes'] as $route) {
-				if ($route->uri === $this->route_uri) {
-					$route->is_named = true;
-					$route->name = $name;
-					$this::$namedRoutes[$name] = $route;
-				}
-			}
 	}
 }
