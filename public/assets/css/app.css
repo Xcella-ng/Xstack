@@ -106,8 +106,8 @@ button {
   background-color: white;
 }
 @media (min-width: 992px) {
-  .chat-wrapper > *:not(:first-child) {
-    border-left: 1px solid black;
+  .chat-wrapper > .left-menu {
+    border-right: 1px solid black;
   }
 }
 
@@ -227,6 +227,38 @@ button {
 }
 #chat-space .chat-space-body .chats .chat-main {
   padding: 1rem;
+}
+#chat-space .chat-space-body .chats .chat-main .contextmenu {
+  position: absolute;
+  top: 50%;
+  right: 0%;
+  display: none;
+  border-radius: 0.5rem;
+  flex-direction: column;
+  background-color: gray;
+  transform: translateX(50%);
+}
+#chat-space .chat-space-body .chats .chat-main .contextmenu.active {
+  display: flex;
+  z-index: 100;
+}
+#chat-space .chat-space-body .chats .chat-main .contextmenu > a {
+  padding: 1rem;
+  color: white;
+}
+#chat-space .chat-space-body .chats .chat-main .contextmenu > a:hover {
+  background-color: darkgray;
+}
+#chat-space .chat-space-body .chats .chat-main .contextmenu > a:first-child {
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+}
+#chat-space .chat-space-body .chats .chat-main .contextmenu > a:last-child {
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+}
+#chat-space .chat-space-body .chats .chat-main .contextmenu > a:not(:last-child) {
+  border-bottom: 1px solid lightgray;
 }
 #chat-space .chat-space-bottom {
   display: flex;

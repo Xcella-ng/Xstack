@@ -4,11 +4,11 @@ namespace System\Base;
 
 use Directory;
 
-class Dir extends Directory
+final class Dir extends Directory
 {
-	public static ?string $root = ROOT;
+	private static ?string $root = ROOT;
 
-	public static function root($path)
+	public static function root(?string $path = NULL)
 	{
 		if (!empty($path))
 			Dir::$root = $path;

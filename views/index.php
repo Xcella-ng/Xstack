@@ -126,17 +126,18 @@ $chat_messages = (object) [
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Chat App</title>
 
-	<link rel="stylesheet" href="<?= BASE_URI . '/assets/plugins/fontawesome/css/all.css' ?>">
-	<link rel="stylesheet" href="<?= BASE_URI . '/assets/plugins/fuxcel/css/fuxcel.css' ?>">
+	<link rel="stylesheet" href="<?= asset('plugins/fontawesome/css/all.css') ?>">
+	<link rel="stylesheet" href="<?= asset('plugins/fuxcel/css/fuxcel.css') ?>">
 
-	<link rel="stylesheet" href="<?= BASE_URI . '/assets/css/app.css' ?>">
+	<link rel="stylesheet" href="<?= asset('css/app.css') ?>">
 
-	<script src="<?= BASE_URI . '/assets/plugins/fuxcel/js/fuxcel.js' ?>" defer></script>
-	<script src="<?= BASE_URI . '/assets/js/app.js' ?>" defer></script>
+	<script src="<?= asset('plugins/fuxcel/js/fuxcel.js') ?>" defer></script>
+	<script src="<?= asset('js/app.js') ?>" defer></script>
 </head>
 
 <body>
 	<main>
+		<div id="error-bag" data-errors='<?= json_encode($error) ?>'></div>
 		<nav class="space-items">
 			<div class="nav-links">
 				<a href="" class="left-menu-toggler active" data-id="#chat-contacts" title="Chats">

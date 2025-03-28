@@ -1124,7 +1124,10 @@ class Fuxcel extends FuxcelBase {
 	matchSelector (selector) {
 		const selected = this.toArray;
 		if (isString(selector))
-			return (selected[0].matches).call(selected[0], selector);
+			if (selected[0].matches)
+				return (selected[0].matches).call(selected[0], selector);
+			else
+				return;
 		throw (`Function \`matchSelector()\` expects 1 argument. 0 given`);
 	}
 

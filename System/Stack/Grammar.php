@@ -26,7 +26,7 @@ final class Grammar
 	public function __construct(string $word)
 	{
 		$this->word = $word;
-		$this->getPlural();
+		// $this->getPlural();
 	}
 
 	/**
@@ -57,7 +57,6 @@ final class Grammar
 		}
 		$matched_key = array_reduce($matched_keys, fn($carry, $item) => strlen($item) > strlen($carry) ? $item : $carry);
 		$replacement = !empty($matched_key) ? $this::$plurals[$matched_key] : NULL;
-
 		if (!empty($replacement) && is_array($replacement))
 			$replacement = $this->getConsonantPlural($word, $matched_key, $replacement);
 		return (object)compact('matched_key', 'replacement');
