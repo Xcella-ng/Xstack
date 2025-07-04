@@ -1,0 +1,101 @@
+#!/usr/bin/env php
+<?php
+if (!defined('PROJECT_ROOT'))
+	define('PROJECT_ROOT', realpath(__DIR__));
+
+require_once PROJECT_ROOT . '/vendor/Xcella/Hodos/Helpers/app.php';
+// require_once PROJECT_ROOT . '/vendor/Xcella/Hodos/constants.php';
+require_once PROJECT_ROOT . '/vendor/Xcella/Hodos/Stack/Template/Engine.php';
+require_once PROJECT_ROOT . '/vendor/Xcella/Hodos/Stack/Template/Compiler.php';
+
+use Hodos\Stack\Template\Compiler;
+
+
+echo <<<LOGO
+___      ___    _____   _______   __        __            ______
+\  \    /  /   /  __|  |   ___/  |  |      |  |          +  __  +
+ \  \  /  /   /` /     |  |      |  |      |  |         +  /  \  +
+  \  \/  /   +  /      |  |___   |  |      |  |        +  /____\  +
+   +    +   +  |       |   ___|  |  |      |  |       +  ________  +
+  /  /\  \   +  \      |  |      |  |      |  |      +  /        \  +
+ /  /  \  \   \  \__   |  |____  |  |____  |  |____  \  |        |  /
+/__/    \__\   \____|  |______/  |______/  |______/   \_|        |_/
+
+©️ XCELLA INSIGHTS LTD.
+Xstack CLI Tool v1.0
+LOGO. "\n\n";
+
+function portIsInUse(string $host, int $port):bool
+{
+	$connection = @fsockopen($host, $port, $errno, $errstr, 1);
+	if ($connection) {
+		fclose($connection);
+		return true; // Something is already using the port
+	}
+	return false;
+}
+
+function parseOptions(array $argv):array
+{
+	$options = [];
+	for ($i = 0; $i < count($argv); $i++) {
+		if (str_starts_with($argv[$i], '--')) {
+			$key = ltrim($argv[$i], '-');
+			$value = $argv[$i + 1] ?? true; // If no value, treat it as a flag
+			if (!str_starts_with($value, '--')) {
+				$options[$key] = $value;
+				$i++; // Skip next arg (the value)
+			} else {
+				$options[$key] = true; // It's a flag (e.g., --verbose)
+			}
+		}
+	}
+	return $options;
+}
+
+$command = $argv[1] ?? NULL;
+$options = parseOptions(array_slice($argv, 2)); // skip script name + command
+
+switch ($command) {
+	case 'serve':
+		$host = $options['host'] ?? '127.0.0.1';
+		$port = $options['port'] ?? '8000';
+		
+		if (portIsInUse($host, $port)) {
+			echo "❌  Port $port on $host is already in use.\n";
+			exit(1); // Exit with failure
+		}
+		
+		echo "✅  Port $port on $host is available.\n";
+		echo "🚀 Starting server at http://$host:$port\n";
+		passthru("php -S $host:$port public/index.php");
+		break;
+	
+	case 'route:list':
+		echo "🔍 Listing routes (demo):\n";
+		// Placeholder – you can scan a routes file here
+		echo "GET /home\n";
+		echo "POST /submit\n";
+		break;
+	
+	/*case 'view:compile':
+		echo "📆 Compiling views.\n";
+		Compiler::compileAll();
+		echo "✅  View compilation done.\n";
+		break;*/
+	
+	case 'view:clear':
+		echo "🧼  Clearing view cache...\n";
+		Compiler::clearCache();
+		echo "✅  View cache cleared.\n";
+		break;
+	
+	default:
+		echo "❌  Unknown command.\n";
+		echo "Usage:\n";
+		echo "  php stack serve --host [host] --port [port]\n";
+		echo "  php stack route:list\n";
+		echo "  php stack view:compile\n";
+		echo "  php stack view:clear\n";
+		break;
+}

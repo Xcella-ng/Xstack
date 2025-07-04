@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
-use System\Base\Controller as BaseController;
+use Hodos\Base\Controller as BaseController;
 
-class Controller extends BaseController {}
+class Controller extends BaseController
+{
+}

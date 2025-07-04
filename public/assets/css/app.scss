@@ -117,8 +117,13 @@ button {
 		background-color: white;
 		&:not(:first-child) {
 			@media (min-width: 992px) {
-				border-left: 1px solid black;
+				// border-left: 1px solid black;
 			}
+		}
+	}
+	> .left-menu {
+		@media (min-width: 992px) {
+			border-right: 1px solid black;
 		}
 	}
 }
@@ -232,15 +237,14 @@ button {
 			height: 100%;
 			display: flex;
 
-			
 			&.active {
 				display: unset;
-				
+
 				.chat-init {
 					display: none;
 				}
 			}
-			
+
 			.chat-init {
 				display: unset;
 			}
@@ -266,6 +270,45 @@ button {
 
 			.chat-main {
 				padding: 1rem;
+
+				.contextmenu {
+					position: absolute;
+					top: 50%;
+					right: 0%;
+					display: none;
+					border-radius: 0.5rem;
+					flex-direction: column;
+					background-color: gray;
+					transform: translateX(50%);
+
+					&.active {
+						display: flex;
+						z-index: 100;
+					}
+
+					> a {
+						padding: 1rem;
+						color: white;
+
+						&:hover {
+							background-color: darkgray;
+						}
+
+						&:first-child {
+							border-top-left-radius: 0.5rem;
+							border-top-right-radius: 0.5rem;
+						}
+
+						&:last-child {
+							border-bottom-left-radius: 0.5rem;
+							border-bottom-right-radius: 0.5rem;
+						}
+
+						&:not(:last-child) {
+							border-bottom: 1px solid lightgray;
+						}
+					}
+				}
 			}
 		}
 	}

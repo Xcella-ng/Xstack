@@ -1,15 +1,16 @@
 <?php
 define('ROOT', dirname(__DIR__));
 
-/* Require Composer Autoload */
-// require "$BASE/../vendor";
-
-/* Start App Session */
-session_name('messenger');
-session_start();
-
-/* Require the App Helper file */
-require_once ROOT . '/system/Helpers/app.php';
+if (mb_strtolower($_SERVER['SERVER_NAME']) !== 'localhost') {
+	$path = ROOT . parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+	
+	// Serve static files directly
+	if (file_exists($path) && is_file($path))
+		return false;
+}
 
 /* Require App Autoload */
-require ROOT . '/system/autoload.php';
+require ROOT . '/vendor/Xcella/Hodos/autoload.php';
+
+/* Require router error file */
+require ROOT . '/vendor/Xcella/Hodos/stack.php';
