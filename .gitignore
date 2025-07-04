@@ -1,2 +1,7 @@
+system/framework/cache
+system/framework/logs
+
 vendor/composer
 vendor/autoload.php
+
+composer.lock
