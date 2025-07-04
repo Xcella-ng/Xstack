@@ -10,7 +10,7 @@
   "autoload": {
     "psr-4": {
       "App\\": "app/",
-      "Hodos\\": "vendor/Xcella/Hodos/"
+      "Hodos\\": "vendor/xcella/hodos/"
     }
   },
   "require": {
