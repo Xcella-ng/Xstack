@@ -1,4 +1,12 @@
 {
+  "name": "xcella/xstack",
+  "type": "project",
+  "description": "The skeleton application for the xstack framework.",
+  "keywords": [
+    "xstack",
+    "framework"
+  ],
+  "license": "MIT",
   "autoload": {
     "psr-4": {
       "App\\": "app/",
