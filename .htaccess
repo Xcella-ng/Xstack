@@ -4,7 +4,7 @@
     </IfModule>
 
 	RewriteEngine On
-	# RewriteBase /xstack
+    # RewriteBase xstack
 
 	ErrorDocument 400 %{REQUEST_SCHEME}
     ErrorDocument 401 %{REQUEST_URI}
