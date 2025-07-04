@@ -5,16 +5,6 @@ namespace App\Models;
 class User extends Model
 {
 	protected $hidden = [
-		'username'
+		'username',
 	];
-
-	public function address()
-	{
-		return $this->hasOne(UserAddress::class);
-	}
-
-	public function addresses()
-	{
-		return $this->belongsTo(UserAddress::class);
-	}
 }

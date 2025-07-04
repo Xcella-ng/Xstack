@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
-use \System\Base\Model as BaseModel;
+use Hodos\Base\Model as BaseModel;
 
-abstract class Model extends BaseModel {}
+abstract class Model extends BaseModel
+{
+}
